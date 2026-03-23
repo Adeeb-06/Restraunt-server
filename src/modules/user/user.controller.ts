@@ -7,7 +7,7 @@ import User from "./user.model";
  */
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { username, email, firebaseUid, photoURL } = req.body;
+    const { restrauntName, email, firebaseUid, photoURL } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -16,7 +16,7 @@ export const registerUser = async (req: Request, res: Response) => {
     }
 
     const user = await User.create({
-      username,
+      restrauntName,
       email,
       firebaseUid: firebaseUid || "",
       photoURL: photoURL || "",
@@ -38,13 +38,13 @@ export const registerUser = async (req: Request, res: Response) => {
  */
 export const upsertUser = async (req: Request, res: Response) => {
   try {
-    const { username, email, firebaseUid, photoURL } = req.body;
+    const { restrauntName, email, firebaseUid, photoURL } = req.body;
 
     let user = await User.findOne({ email });
 
     if (!user) {
       user = await User.create({
-        username: username || email.split("@")[0],
+        restrauntName: restrauntName || email.split("@")[0],
         email,
         firebaseUid: firebaseUid || "",
         photoURL: photoURL || "",
@@ -144,6 +144,32 @@ export const updateUserRole = async (req: Request, res: Response) => {
     res.status(200).json({ message: "Role updated", user });
   } catch (error: unknown) {
     console.error("updateUserRole error:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+/**
+ * PATCH /api/users/:email/settings
+ * Updates user settings such as itemImageEnabled
+ */
+export const updateUserSettings = async (req: Request, res: Response) => {
+  const { email } = req.params;
+  const { itemImageEnabled } = req.body;
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { email },
+      { $set: { itemImageEnabled } },
+      { new: true }
+    ).select("-__v");
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    res.status(200).json({ message: "Settings updated", user });
+  } catch (error: unknown) {
+    console.error("updateUserSettings error:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };

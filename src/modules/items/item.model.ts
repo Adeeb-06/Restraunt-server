@@ -20,7 +20,6 @@ const itemSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        required: true
     },
     showInMenu: {
         type: Boolean,

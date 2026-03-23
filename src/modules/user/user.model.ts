@@ -2,7 +2,7 @@ import mongoose, { Schema, model } from "mongoose";
 
 const userSchema = new Schema(
   {
-    username: { type: String, required: true },
+    restrauntName: { type: String, required: true , unique: true },
     email: { type: String, required: true, unique: true },
     firebaseUid: { type: String, default: "" },
     role: {
@@ -11,6 +11,7 @@ const userSchema = new Schema(
       default: "owner",
     },
     photoURL: { type: String, default: "" },
+    itemImageEnabled: { type: Boolean, default: true },
   },
   { timestamps: true },
 );

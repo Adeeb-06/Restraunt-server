@@ -1,5 +1,5 @@
 export interface UserDTO {
-  username: string;
+  restrauntName: string;
   email: string;
   firebaseUid?: string;
   role?:  "admin" | "owner";

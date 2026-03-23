@@ -9,6 +9,7 @@ import { connectToDatabase } from "./config/mongodb";
 import userRouter from "./modules/user/user.route";
 import categoryRouter from "./modules/category/category.route";
 import itemRouter from "./modules/items/item.route";
+import menuRouter from "./modules/menu/menu.route";
 
 // Connect to MongoDB
 connectToDatabase();
@@ -41,6 +42,7 @@ app.get("/", (_req, res) => {
 app.use("/api/users", userRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/items", itemRouter);
+app.use("/api/menu", menuRouter);
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 if (require.main === module) {

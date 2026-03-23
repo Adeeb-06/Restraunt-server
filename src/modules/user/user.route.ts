@@ -6,6 +6,7 @@ import {
   userExists,
   getUserByEmail,
   updateUserRole,
+  updateUserSettings,
 } from "./user.controller";
 import { verifyAuth } from "../../middlewares/auth";
 
@@ -20,5 +21,6 @@ userRouter.get("/:email/exists", userExists);
 userRouter.get("/", verifyAuth, getAllUsers);
 userRouter.get("/:email", verifyAuth, getUserByEmail);
 userRouter.patch("/:email/role", verifyAuth, updateUserRole);
+userRouter.patch("/:email/settings", verifyAuth, updateUserSettings);
 
 export default userRouter;
