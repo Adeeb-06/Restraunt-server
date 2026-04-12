@@ -7,6 +7,7 @@ import {
   getUserByEmail,
   updateUserRole,
   updateUserSettings,
+  updateUserProfile,
 } from "./user.controller";
 import { verifyAuth } from "../../middlewares/auth";
 
@@ -22,5 +23,6 @@ userRouter.get("/", verifyAuth, getAllUsers);
 userRouter.get("/:email", verifyAuth, getUserByEmail);
 userRouter.patch("/:email/role", verifyAuth, updateUserRole);
 userRouter.patch("/:email/settings", verifyAuth, updateUserSettings);
+userRouter.patch("/:email/profile", verifyAuth, updateUserProfile);
 
 export default userRouter;

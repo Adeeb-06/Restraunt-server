@@ -173,3 +173,29 @@ export const updateUserSettings = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+/**
+ * PATCH /api/users/:email/profile
+ * Updates user profile: restrauntName, photoURL
+ */
+export const updateUserProfile = async (req: Request, res: Response) => {
+  const { email } = req.params;
+  const { restrauntName, photoURL } = req.body;
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { email },
+      { $set: { restrauntName, photoURL } },
+      { new: true }
+    ).select("-__v");
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    res.status(200).json({ message: "Profile updated successfully", user });
+  } catch (error: unknown) {
+    console.error("updateUserProfile error:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
