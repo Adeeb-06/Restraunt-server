@@ -18,6 +18,10 @@ const userSchema = new Schema(
         validity: { type: Date },
       },
     ],
+    colors: {
+      primary: { type: String, default: "#e8845c" },
+      secondary: { type: String, default: "#e8845c" },
+    }
   },
   { timestamps: true },
 );

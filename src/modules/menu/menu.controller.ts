@@ -44,6 +44,7 @@ export const getMenu = async (req: Request, res: Response) => {
         name: resEmail.restrauntName,
         photoURL: resEmail.photoURL,
         itemImageEnabled: resEmail.itemImageEnabled,
+        colors: resEmail.colors,
       },
       menu
     });

@@ -199,3 +199,24 @@ export const updateUserProfile = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+export const addColours = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.params;
+    const { colors } = req.body;
+    const user = await User.findOneAndUpdate(
+      { email },
+      { $set: { colors } },
+      { new: true }
+    ).select("-__v");
+    if (!user) {
+      res.status(404).json({ message: "User   not found" });
+      return;
+    }
+    res.status(200).json({ message: "Colors updated successfully", user });
+  } catch (error: unknown) {
+    console.error("addColours error:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+}
+  

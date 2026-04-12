@@ -8,6 +8,7 @@ import {
   updateUserRole,
   updateUserSettings,
   updateUserProfile,
+  addColours,
 } from "./user.controller";
 import { verifyAuth } from "../../middlewares/auth";
 
@@ -24,5 +25,6 @@ userRouter.get("/:email", verifyAuth, getUserByEmail);
 userRouter.patch("/:email/role", verifyAuth, updateUserRole);
 userRouter.patch("/:email/settings", verifyAuth, updateUserSettings);
 userRouter.patch("/:email/profile", verifyAuth, updateUserProfile);
+userRouter.patch("/:email/colors", verifyAuth, addColours);
 
 export default userRouter;
